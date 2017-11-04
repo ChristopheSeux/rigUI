@@ -1,5 +1,5 @@
 bl_info = {
-    "name": "Rig UI 2",
+    "name": "Rig UI",
     "author": "Christophe Seux",
     "version": (0, 1),
     "blender": (2, 77, 0),
