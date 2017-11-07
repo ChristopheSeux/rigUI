@@ -60,9 +60,10 @@ class PickerMakerPanel(bpy.types.Panel):
                 function_row = col.row(align = True)
                 function_row.prop(ob.UI,'function',text='Function')
                 function_row.operator("rigui.function_selector",text='',icon='COLLAPSEMENU')
-                col.label("Arguments : (%s)"%inspect.getdoc(getattr(mod,ob.UI.function)))
-                col.prop(ob.UI,'arguments',text='')
-                col.prop(ob.UI,'shortcut',text='Shortcut')
+                if ob.UI.function :
+                    col.label("Arguments : (%s)"%inspect.getdoc(getattr(mod,ob.UI.function)))
+                    col.prop(ob.UI,'arguments',text='')
+                    col.prop(ob.UI,'shortcut',text='Shortcut')
             if ob.UI.shape_type == 'BONE' :
                 if scene.UI.rig :
                     col.prop_search(ob.UI,'name',scene.UI.rig.pose,'bones',text='Bone')

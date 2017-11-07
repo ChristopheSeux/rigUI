@@ -3,7 +3,7 @@ import inspect
 
 def functions_item(self,context):
     items = []
-    from ..functions import picker_functions as mod
+    from . import func_picker as mod
 
     for name,func in inspect.getmembers(mod, inspect.isfunction) :
             if inspect.getmodule(func) == mod :

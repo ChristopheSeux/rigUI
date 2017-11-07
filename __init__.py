@@ -18,12 +18,11 @@ if "bpy" in locals():
     imp.reload(properties)
     imp.reload(panels)
 
-else:
-    from .op_material import *
-    from .op_picker import *
-    from .op_shape import *
-    from .properties import *
-    from .panels import *
+from .op_material import *
+from .op_picker import *
+from .op_shape import *
+from .properties import *
+from .panels import *
 
 import bpy
 

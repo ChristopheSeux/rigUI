@@ -63,7 +63,7 @@ def store_ui_data(objects,canevas,rig):
             colors = ob.data.materials[0].node_tree.nodes['Emission'].inputs['Color'].default_value
             color = [round(pow(colors[0],gamma),4),round(pow(colors[1],gamma),4),round(pow(colors[2],gamma),4)]
         except :
-            color = [0.5,0.5,0.5,1]
+            color = [0.5,0.5,0.5]
 
         verts_x = [v[0] for v in points]
         verts_y = [v[1] for v in points]
