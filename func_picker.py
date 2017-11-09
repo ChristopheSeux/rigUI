@@ -3,10 +3,14 @@ import bpy
 #from. insert_keyframe import insert_keyframe
 from. snapping_utils import *
 from .utils import get_IK_bones
-from rigutils.driver_utils import split_path
-from rigutils.insert_keyframe import insert_keyframe
-from rigutils.snap_ik_fk import snap_ik_fk
-from rigutils.utils import find_mirror
+
+try :
+    from rigutils.driver_utils import split_path
+    from rigutils.insert_keyframe import insert_keyframe
+    from rigutils.snap_ik_fk import snap_ik_fk
+    from rigutils.utils import find_mirror
+except :
+    print('You need to install the rigutils module in your blender modules path')
 
 def hide_layers(args) :
     """ """
