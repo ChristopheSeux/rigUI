@@ -13,7 +13,7 @@ def draw_polyline_2d_loop(verts,faces,loops,color,contour,width):
 
     bgl.glColor4f(*color)
     bgl.glEnable(bgl.GL_BLEND)
-    bgl.glEnable(bgl.GL_LINE_SMOOTH)
+    #bgl.glEnable(bgl.GL_LINE_SMOOTH)
 
     bgl.glColor4f(*color)
     for face in faces :
@@ -23,6 +23,7 @@ def draw_polyline_2d_loop(verts,faces,loops,color,contour,width):
             bgl.glVertex2f(coord[0],coord[1])
         bgl.glEnd()
 
+    '''
     #antialiasing contour
     bgl.glColor4f(*color)
     bgl.glLineWidth(1)
@@ -35,6 +36,7 @@ def draw_polyline_2d_loop(verts,faces,loops,color,contour,width):
             coord = verts[v_index]
             bgl.glVertex2f(coord[0],coord[1])
         bgl.glEnd()
+        '''
 
 
     if width :
@@ -42,14 +44,17 @@ def draw_polyline_2d_loop(verts,faces,loops,color,contour,width):
         bgl.glColor4f(*contour)
 
         for loop in loops :
-            bgl.glBegin(bgl.GL_LINE_LOOP)
+            if faces :
+                bgl.glBegin(bgl.GL_LINE_LOOP)
+            else :
+                bgl.glBegin(bgl.GL_LINE_STRIP)
             for v_index in loop :
                 coord = verts[v_index]
                 bgl.glVertex2f(coord[0],coord[1])
             bgl.glEnd()
 
     bgl.glDisable(bgl.GL_BLEND)
-    bgl.glDisable(bgl.GL_LINE_SMOOTH)
+    #bgl.glDisable(bgl.GL_LINE_SMOOTH)
     bgl.glEnd()
 
     return
@@ -94,7 +99,7 @@ def draw_text(mouse,text,color) :
     bgl.glColor4f(0,0,0,0.75)
     blf.blur(font_id,5)
     blf.position(font_id, mouse[0]+10*dpi, mouse[1]-20*dpi, 0)
-    blf.size(font_id, 8*dpi, 96)
+    blf.size(font_id, 9*dpi, 96)
     blf.draw(font_id, text)
 
     bgl.glEnd()
@@ -191,6 +196,10 @@ def draw_callback_px(self, context):
             shape_color = [c for c in color]
             shape_alpha = 1
 
+
+            if shape['shape_type'] == 'DISPLAY' and  not faces:
+                width = 1
+
             if shape['shape_type'] != 'DISPLAY' :
                 if shape['shape_type'] == 'BONE' :
                     bone = ob.pose.bones.get(shape['bone'])
@@ -217,6 +226,7 @@ def draw_callback_px(self, context):
                                     shape_color = [c*1.2+0.15 for c in color]
                                     contour_color = [0.9,0.9,0.9]
                                     width = 1
+
 
                         if bone.bone.hide or not len(set(b_layers).intersection(rig_layers)) :
                             shape_alpha = 0.33
